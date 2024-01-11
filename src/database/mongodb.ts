@@ -4,7 +4,7 @@ import dotenv from "dotenv";
 dotenv.config();
 const connectionString = process.env.MONGO_DB_CONNECTION_STRING;
 
-export let database = mongoose;
+const database = mongoose;
 
 if (connectionString) {
   database
@@ -16,3 +16,5 @@ if (connectionString) {
     )
     .catch((err) => console.error("Error connecting to mongo", err));
 }
+
+export default database;
