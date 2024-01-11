@@ -8,8 +8,9 @@ const cors_1 = __importDefault(require("cors"));
 const path_1 = __importDefault(require("path"));
 const cookie_parser_1 = __importDefault(require("cookie-parser"));
 const morgan_1 = __importDefault(require("morgan"));
-const index_1 = __importDefault(require("../routes/index"));
-const userProfiles_1 = __importDefault(require("../routes/userProfiles"));
+const index_routes_1 = __importDefault(require("../routes/index.routes"));
+const userProfiles_routes_1 = __importDefault(require("../routes/userProfiles.routes"));
+const services_routes_1 = __importDefault(require("../routes/services.routes"));
 const createServer = () => {
     const app = (0, express_1.default)();
     const allowedOrigins = [
@@ -35,8 +36,9 @@ const createServer = () => {
     app.use((0, cookie_parser_1.default)());
     app.use(express_1.default.static(path_1.default.join(__dirname, "public")));
     app.use((0, cors_1.default)(corsOptions));
-    app.use("/", index_1.default);
-    app.use("/v1/userProfiles", userProfiles_1.default);
+    app.use("/", index_routes_1.default);
+    app.use("/v1/userProfiles", userProfiles_routes_1.default);
+    app.use("/v1/services", services_routes_1.default);
     return app;
 };
 exports.default = createServer;

@@ -31,5 +31,10 @@ exports.userProfileSchema = new mongoose_1.Schema({
     governmentId: { type: String, require: true },
     phone: String,
     address: String,
+    role: {
+        type: String,
+        enum: ["staff", "patient"],
+        require: true
+    }
 });
 exports.UserProfile = mongoose_1.default.model("userProfiles", exports.userProfileSchema, "userProfiles");
