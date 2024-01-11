@@ -15,11 +15,11 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const supertest_1 = __importDefault(require("supertest"));
 const server_1 = __importDefault(require("../utils/server"));
 const app = (0, server_1.default)();
-describe("index", () => {
-    describe("get index route", () => {
-        describe("index should be reachable", () => {
-            it("should return a 200", () => __awaiter(void 0, void 0, void 0, function* () {
-                yield (0, supertest_1.default)(app).get(`/`).expect(200);
+describe("404 middleware", () => {
+    describe("get non existent route", () => {
+        describe("given route unreachable", () => {
+            it("should return a 404", () => __awaiter(void 0, void 0, void 0, function* () {
+                yield (0, supertest_1.default)(app).get(`/non-existent-route`).expect(404);
             }));
         });
     });
