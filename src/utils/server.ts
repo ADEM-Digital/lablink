@@ -1,4 +1,4 @@
-import express, { Express, Request, Response } from "express";
+import express from "express";
 import cors, { CorsOptions } from "cors";
 
 import path from "path";
@@ -6,6 +6,8 @@ import cookieParser from "cookie-parser";
 import logger from "morgan";
 
 import indexRouter from "../routes/index";
+import userProfilesRouter from "../routes/userProfiles";
+
 
 const createServer = () => {
   const app = express();
@@ -35,6 +37,7 @@ const createServer = () => {
   app.use(cors(corsOptions));
 
   app.use("/", indexRouter);
+  app.use("/v1/userProfiles", userProfilesRouter);
 
   return app;
 };
