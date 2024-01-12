@@ -3,7 +3,11 @@ import { UserProfile } from "./UserProfile.model";
 import { Test } from "./Test.model";
 
 export const serviceSchema = new Schema({
-  user: UserProfile,
+  user: {
+    type: Schema.Types.ObjectId,
+    ref: UserProfile,
+    require: true
+  },
   createdAt: Date,
   updatedAt: Date,
   status: {
@@ -11,7 +15,10 @@ export const serviceSchema = new Schema({
     enum: ["pending results", "results uploaded", "opened"],
     default: "pending results"
   },
-  tests: [Test],
+  tests: [{
+    type: Schema.Types.ObjectId,
+    ref: Test
+  }],
   results: String
 });
 

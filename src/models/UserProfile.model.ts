@@ -6,6 +6,11 @@ export const userProfileSchema = new Schema({
   governmentId: {type: String, require: true},
   phone: String,
   address: String,
+  role: {
+    type: String,
+    enum: ["staff" , "patient"],
+    require: true
+  }
 });
 
 export const UserProfile = mongoose.model("userProfiles", userProfileSchema, "userProfiles");

@@ -5,4 +5,5 @@ export type UserProfile = {
   governmentId: string;
   phone: string;
   address: string;
+  role: "staff" | "patient";
 };

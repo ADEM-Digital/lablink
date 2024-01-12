@@ -28,7 +28,11 @@ const mongoose_1 = __importStar(require("mongoose"));
 const UserProfile_model_1 = require("./UserProfile.model");
 const Test_model_1 = require("./Test.model");
 exports.serviceSchema = new mongoose_1.Schema({
-    user: UserProfile_model_1.UserProfile,
+    user: {
+        type: mongoose_1.Schema.Types.ObjectId,
+        ref: UserProfile_model_1.UserProfile,
+        require: true
+    },
     createdAt: Date,
     updatedAt: Date,
     status: {
@@ -36,7 +40,10 @@ exports.serviceSchema = new mongoose_1.Schema({
         enum: ["pending results", "results uploaded", "opened"],
         default: "pending results"
     },
-    tests: [Test_model_1.Test],
+    tests: [{
+            type: mongoose_1.Schema.Types.ObjectId,
+            ref: Test_model_1.Test
+        }],
     results: String
 });
 exports.Service = mongoose_1.default.model("services", exports.serviceSchema, "services");
