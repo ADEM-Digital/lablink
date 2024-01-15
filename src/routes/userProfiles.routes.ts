@@ -5,7 +5,7 @@ const router = express.Router();
 
 router.get("/", async (req, res, next) => {
   try {
-    let userProfiles = await UserProfile.find({});
+    let userProfiles = await UserProfile.find(req.query);
     return res.status(200).json(userProfiles);
   } catch (error) {
     console.error("Failed to fetch user profiles", error);
@@ -15,8 +15,9 @@ router.get("/", async (req, res, next) => {
 
 router.post("/", async (req, res, next) => {
   // return an error if req.body is empty
-  if (!req.body.hasOwnProperty("userId"))
-    return res.status(500).json("Failed to create user profile");
+  if (!req.body.hasOwnProperty("userId")) {
+    console.log(req.body)
+    return res.status(500).json("Failed to create user profile")};
   try {
     let createdDocument = await UserProfile.create(req.body);
     return res.status(201).json(createdDocument);

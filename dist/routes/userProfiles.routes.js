@@ -17,7 +17,7 @@ const UserProfile_model_1 = require("../models/UserProfile.model");
 const router = express_1.default.Router();
 router.get("/", (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        let userProfiles = yield UserProfile_model_1.UserProfile.find({});
+        let userProfiles = yield UserProfile_model_1.UserProfile.find(req.query);
         return res.status(200).json(userProfiles);
     }
     catch (error) {
@@ -27,8 +27,11 @@ router.get("/", (req, res, next) => __awaiter(void 0, void 0, void 0, function* 
 }));
 router.post("/", (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     // return an error if req.body is empty
-    if (!req.body.hasOwnProperty("userId"))
+    if (!req.body.hasOwnProperty("userId")) {
+        console.log(req.body);
         return res.status(500).json("Failed to create user profile");
+    }
+    ;
     try {
         let createdDocument = yield UserProfile_model_1.UserProfile.create(req.body);
         return res.status(201).json(createdDocument);

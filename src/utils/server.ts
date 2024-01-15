@@ -8,6 +8,7 @@ import logger from "morgan";
 import indexRouter from "../routes/index.routes";
 import userProfilesRouter from "../routes/userProfiles.routes";
 import servicesRouter from "../routes/services.routes";
+import testsRouter from "../routes/tests.routes";
 
 
 const createServer = () => {
@@ -40,6 +41,7 @@ const createServer = () => {
   app.use("/", indexRouter);
   app.use("/v1/userProfiles", userProfilesRouter);
   app.use("/v1/services", servicesRouter);
+  app.use("/v1/tests", testsRouter);
 
   return app;
 };

@@ -1,7 +1,5 @@
 import dotenv from "dotenv";
-import { UserProfile } from "../types/UserProfile";
 import supertest, { Response } from "supertest";
-// import app, { server } from "../server";
 import mongoose from "mongoose";
 
 import createServer from "../utils/server";
