@@ -14,7 +14,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const dotenv_1 = __importDefault(require("dotenv"));
 const supertest_1 = __importDefault(require("supertest"));
-// import app, { server } from "../server";
 const mongoose_1 = __importDefault(require("mongoose"));
 const server_1 = __importDefault(require("../utils/server"));
 const Service_model_1 = require("../models/Service.model");
