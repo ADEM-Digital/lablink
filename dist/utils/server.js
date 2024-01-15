@@ -12,6 +12,7 @@ const index_routes_1 = __importDefault(require("../routes/index.routes"));
 const userProfiles_routes_1 = __importDefault(require("../routes/userProfiles.routes"));
 const services_routes_1 = __importDefault(require("../routes/services.routes"));
 const tests_routes_1 = __importDefault(require("../routes/tests.routes"));
+const dashboards_routes_1 = __importDefault(require("../routes/dashboards.routes"));
 const createServer = () => {
     const app = (0, express_1.default)();
     const allowedOrigins = [
@@ -41,6 +42,7 @@ const createServer = () => {
     app.use("/v1/userProfiles", userProfiles_routes_1.default);
     app.use("/v1/services", services_routes_1.default);
     app.use("/v1/tests", tests_routes_1.default);
+    app.use("/v1/dashboards", dashboards_routes_1.default);
     return app;
 };
 exports.default = createServer;

@@ -9,6 +9,7 @@ import indexRouter from "../routes/index.routes";
 import userProfilesRouter from "../routes/userProfiles.routes";
 import servicesRouter from "../routes/services.routes";
 import testsRouter from "../routes/tests.routes";
+import dashboardsRouter from "../routes/dashboards.routes";
 
 
 const createServer = () => {
@@ -42,6 +43,7 @@ const createServer = () => {
   app.use("/v1/userProfiles", userProfilesRouter);
   app.use("/v1/services", servicesRouter);
   app.use("/v1/tests", testsRouter);
+  app.use("/v1/dashboards", dashboardsRouter);
 
   return app;
 };
