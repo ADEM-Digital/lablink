@@ -56,4 +56,44 @@ router.get("/patient/:userId", (req, res, next) => __awaiter(void 0, void 0, voi
         return res.status(500).json("Failed to fetch the dashboard data");
     }
 }));
+router.get("/staff/:userId", (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    // Should receive a valid patient userId
+    // Should return a 400 error when an invalid user id is provided
+    // Should return an object with keys completedServices, pendingServices, unopenedServices, and recentServices
+    // Should return a 200 status code
+    // Should handle errors accordingly
+    try {
+        const { userId } = req.params;
+        const userProfile = yield UserProfile_model_1.UserProfile.findOne({ userId });
+        if (!userProfile || userProfile.role !== "staff") {
+            return res.status(400).json("Bad request. Provided invalid user id.");
+        }
+        const completedServices = yield Service_model_1.Service.countDocuments({
+            status: { $in: ["results uploaded", "opened"] },
+        });
+        const unopenedServices = yield Service_model_1.Service.countDocuments({
+            status: "results uploaded",
+        });
+        const pendingServices = yield Service_model_1.Service.countDocuments({
+            status: "pending results",
+        });
+        const recentServices = yield Service_model_1.Service.find({
+            status: { $in: ["pending results"] },
+        })
+            .populate("tests")
+            .sort({ updatedAt: -1 })
+            .limit(5);
+        const dashboardData = {
+            completedServices,
+            unopenedServices,
+            pendingServices,
+            recentServices,
+        };
+        return res.status(200).json(dashboardData);
+    }
+    catch (error) {
+        console.error("Failed to fetch the dashboard data %s", error);
+        return res.status(500).json("Failed to fetch the dashboard data.");
+    }
+}));
 exports.default = router;
