@@ -33,6 +33,7 @@ const createServer = () => {
         },
         optionsSuccessStatus: 200,
     };
+    app.set('view engine', 'ejs');
     app.use((0, morgan_1.default)("dev"));
     app.use(express_1.default.static("public"));
     app.use(express_1.default.json());

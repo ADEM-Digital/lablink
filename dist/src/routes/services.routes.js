@@ -194,8 +194,7 @@ router.get("/formData", (req, res, next) => __awaiter(void 0, void 0, void 0, fu
         return res.status(200).json(formData);
     }
     catch (error) {
-        // @ts-ignore
-        console.error("Failed to fetch the services form data %s", error.response);
+        console.log(error);
         return res.status(500).json("Failed to fetch the services form data");
     }
 }));
