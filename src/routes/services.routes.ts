@@ -231,7 +231,7 @@ router.get("/formData", async (req, res, next) => {
     return res.status(200).json(formData);
   } catch (error) {
     // @ts-ignore
-    console.error("Failed to fetch the services form data %s", error.response);
+    console.error("Failed to fetch the services form data %s", error);
     return res.status(500).json("Failed to fetch the services form data");
   }
 });
