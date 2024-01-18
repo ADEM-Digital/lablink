@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.sendServiceConfirmationEmail = exports.buildServiceConfirmationEmailBody = void 0;
+exports.sendServiceUpdateEmail = exports.buildServiceUpdateEmailBody = exports.sendServiceConfirmationEmail = exports.buildServiceConfirmationEmailBody = void 0;
 const nodemailer_1 = __importDefault(require("nodemailer"));
 const dotenv_1 = __importDefault(require("dotenv"));
 dotenv_1.default.config();
@@ -61,3 +61,40 @@ const sendServiceConfirmationEmail = (destinationEmail, emailBody) => __awaiter(
     }
 });
 exports.sendServiceConfirmationEmail = sendServiceConfirmationEmail;
+const buildServiceUpdateEmailBody = (serviceId, testsList, results) => __awaiter(void 0, void 0, void 0, function* () {
+    const body = `
+    <h1>LabLink - Service Information</h1>
+
+    <p>The service <b>${serviceId}</b> has been updated in our system.</p>
+
+    <p>This service includes the following tests:</p>
+    <ul>
+    ${testsList.map((test) => {
+        console.log(test);
+        return `<li><b>${test.name}</b>. Average result time: ${test.resultTime}</li>`;
+    }).join("")}
+    </ul>
+
+    <p>The link to your lab results is: <a href="${results}">${"Download results"}</a></p>
+
+    <p>You can check the status of your service online at <a href="${process.env.LABLINK_CLIENT_URL}">${process.env.LABLINK_CLIENT_URL}</a>.</p>
+    `;
+    return body;
+});
+exports.buildServiceUpdateEmailBody = buildServiceUpdateEmailBody;
+const sendServiceUpdateEmail = (destinationEmail, emailUpdateBody) => __awaiter(void 0, void 0, void 0, function* () {
+    const mailOptions = {
+        from: process.env.NODEMAILER_USER,
+        to: destinationEmail,
+        subject: "LabLink - Information about your lab results",
+        html: emailUpdateBody
+    };
+    try {
+        const response = yield transporter.sendMail(mailOptions);
+        console.log(response);
+    }
+    catch (error) {
+        console.error("Failed to send email %s", error);
+    }
+});
+exports.sendServiceUpdateEmail = sendServiceUpdateEmail;

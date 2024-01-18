@@ -1,5 +1,6 @@
 import express from "express";
 import cors, { CorsOptions } from "cors";
+import fileUpload from "express-fileupload";
 
 import path from "path";
 import cookieParser from "cookie-parser";
@@ -10,6 +11,9 @@ import userProfilesRouter from "../routes/userProfiles.routes";
 import servicesRouter from "../routes/services.routes";
 import testsRouter from "../routes/tests.routes";
 import dashboardsRouter from "../routes/dashboards.routes";
+import s3Router from "../routes/s3.routes";
+
+
 
 
 const createServer = () => {
@@ -38,12 +42,14 @@ const createServer = () => {
   app.use(cookieParser());
   app.use(express.static(path.join(__dirname, "public")));
   app.use(cors(corsOptions));
+  app.use(fileUpload());
 
   app.use("/", indexRouter);
   app.use("/v1/userProfiles", userProfilesRouter);
   app.use("/v1/services", servicesRouter);
   app.use("/v1/tests", testsRouter);
   app.use("/v1/dashboards", dashboardsRouter);
+  app.use("/v1/s3", s3Router);
 
   return app;
 };

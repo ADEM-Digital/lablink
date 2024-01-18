@@ -80,7 +80,7 @@ router.get("/staff/:userId", (req, res, next) => __awaiter(void 0, void 0, void 
         const recentServices = yield Service_model_1.Service.find({
             status: { $in: ["pending results"] },
         })
-            .populate("tests")
+            .populate([{ path: "tests" }, { path: "user" }])
             .sort({ updatedAt: -1 })
             .limit(5);
         const dashboardData = {

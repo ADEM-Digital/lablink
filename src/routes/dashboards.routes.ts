@@ -79,7 +79,7 @@ router.get("/staff/:userId", async (req, res, next) => {
     const recentServices = await Service.find({
       status: { $in: ["pending results"] },
     })
-      .populate("tests")
+      .populate([{path: "tests"}, {path: "user"}])
       .sort({ updatedAt: -1 })
       .limit(5);
 

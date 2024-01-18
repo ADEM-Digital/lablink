@@ -5,6 +5,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const cors_1 = __importDefault(require("cors"));
+const express_fileupload_1 = __importDefault(require("express-fileupload"));
 const path_1 = __importDefault(require("path"));
 const cookie_parser_1 = __importDefault(require("cookie-parser"));
 const morgan_1 = __importDefault(require("morgan"));
@@ -13,6 +14,7 @@ const userProfiles_routes_1 = __importDefault(require("../routes/userProfiles.ro
 const services_routes_1 = __importDefault(require("../routes/services.routes"));
 const tests_routes_1 = __importDefault(require("../routes/tests.routes"));
 const dashboards_routes_1 = __importDefault(require("../routes/dashboards.routes"));
+const s3_routes_1 = __importDefault(require("../routes/s3.routes"));
 const createServer = () => {
     const app = (0, express_1.default)();
     const allowedOrigins = [
@@ -38,11 +40,13 @@ const createServer = () => {
     app.use((0, cookie_parser_1.default)());
     app.use(express_1.default.static(path_1.default.join(__dirname, "public")));
     app.use((0, cors_1.default)(corsOptions));
+    app.use((0, express_fileupload_1.default)());
     app.use("/", index_routes_1.default);
     app.use("/v1/userProfiles", userProfiles_routes_1.default);
     app.use("/v1/services", services_routes_1.default);
     app.use("/v1/tests", tests_routes_1.default);
     app.use("/v1/dashboards", dashboards_routes_1.default);
+    app.use("/v1/s3", s3_routes_1.default);
     return app;
 };
 exports.default = createServer;

@@ -47,4 +47,41 @@ export const sendServiceConfirmationEmail = async (destinationEmail: string, ema
     } catch (error) {
         console.error("Failed to send email %s", error);
     }
+}
+
+export const buildServiceUpdateEmailBody = async (serviceId: string, testsList: Test[], results: string) => {
+    const body = `
+    <h1>LabLink - Service Information</h1>
+
+    <p>The service <b>${serviceId}</b> has been updated in our system.</p>
+
+    <p>This service includes the following tests:</p>
+    <ul>
+    ${testsList.map((test) => {
+        console.log(test)
+        return `<li><b>${test.name}</b>. Average result time: ${test.resultTime}</li>`}).join("")}
+    </ul>
+
+    <p>The link to your lab results is: <a href="${results}">${"Download results"}</a></p>
+
+    <p>You can check the status of your service online at <a href="${process.env.LABLINK_CLIENT_URL}">${process.env.LABLINK_CLIENT_URL}</a>.</p>
+    `
+
+    return body;
+}
+
+export const sendServiceUpdateEmail = async (destinationEmail: string, emailUpdateBody: string) => {
+    const mailOptions = {
+        from: process.env.NODEMAILER_USER,
+        to: destinationEmail,
+        subject: "LabLink - Information about your lab results",
+        html: emailUpdateBody
+    }
+
+    try {
+        const response = await transporter.sendMail(mailOptions);
+        console.log(response)
+    } catch (error) {
+        console.error("Failed to send email %s", error);
+    }
 } 
