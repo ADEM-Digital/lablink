@@ -35,6 +35,7 @@ const createServer = () => {
     optionsSuccessStatus: 200,
   };
 
+  app.set('view engine', 'ejs');
   app.use(logger("dev"));
   app.use(express.static("public"));
   app.use(express.json());
