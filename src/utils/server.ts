@@ -20,7 +20,7 @@ const createServer = () => {
   const app = express();
  
   const allowedOrigins = [
-    "https://certassist-client.vercel.app",
+    "https://lablink-client.vercel.app/",
     "http://localhost:5173",
     "http://127.0.0.1:5173",
   ];

@@ -18,7 +18,7 @@ const s3_routes_1 = __importDefault(require("../routes/s3.routes"));
 const createServer = () => {
     const app = (0, express_1.default)();
     const allowedOrigins = [
-        "https://certassist-client.vercel.app",
+        "https://lablink-client.vercel.app/",
         "http://localhost:5173",
         "http://127.0.0.1:5173",
     ];
